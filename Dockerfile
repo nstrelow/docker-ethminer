@@ -1,34 +1,27 @@
 FROM nvidia/cuda:10.2-devel-ubuntu18.04
 
-MAINTAINER Anthony Tatowicz
+MAINTAINER Nils Strelow
+#Original MAINTAINER Anthony Tatowicz
 
 WORKDIR /
 
 # Package and dependency setup
 RUN apt-get update \
     && apt-get -y install software-properties-common \
-    && add-apt-repository -y ppa:ethereum/ethereum -y \
     && apt-get update \
     && apt-get install -y git \
      cmake \
-     libcryptopp-dev \
-     libleveldb-dev \
-     libjsoncpp-dev \
-     libjsonrpccpp-dev \
-     libboost-all-dev \
-     libgmp-dev \
-     libreadline-dev \
-     libcurl4-gnutls-dev \
-     ocl-icd-libopencl1 \
      opencl-headers \
      mesa-common-dev \
-     libmicrohttpd-dev \
-     build-essential
+     build-essential \
+     libdbus-1-dev \
+     perl
 
 # Git repo set up
 RUN git clone https://github.com/ethereum-mining/ethminer.git; \
     cd ethminer; \
-    git checkout tags/v0.18.0 
+    git checkout tags/v0.18.0; \
+    git submodule update --init --recursive
 
 # Build
 RUN cd ethminer; \
