@@ -1,8 +1,5 @@
 FROM nvidia/cuda:10.2-devel-ubuntu18.04
 
-MAINTAINER Nils Strelow
-#Original MAINTAINER Anthony Tatowicz
-
 WORKDIR /
 
 # Package and dependency setup
@@ -20,7 +17,7 @@ RUN apt-get update \
 # Git repo set up
 RUN git clone https://github.com/ethereum-mining/ethminer.git; \
     cd ethminer; \
-    git checkout tags/v0.18.0; \
+    git checkout tags/v0.19.0; \
     git submodule update --init --recursive
 
 # Build
